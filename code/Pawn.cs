@@ -6,11 +6,18 @@ namespace SplatoonV5;
 
 partial class Pawn : AnimatedEntity
 {
+	public void DressFromClient( IClient cl )
+	{
+		var c = new ClothingContainer();
+		c.LoadFromClient( cl );
+		c.DressEntity( this );
+	}
+	bool IsThirdPerson { get; set; } = false;
 	public override void Spawn()
 	{
 		base.Spawn();
 
-		SetModel( "models/sbox_props/watermelon/watermelon.vmdl" );
+		SetModel( "models/citizen.citizen.vmdl" );
 
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;

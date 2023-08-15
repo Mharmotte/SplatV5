@@ -1,7 +1,7 @@
 {
   "Title": "SplatV5",
   "Type": "game",
-  "Org": "local",
+  "Org": "terrier",
   "Ident": "splatv5",
   "Tags": null,
   "Schema": 1,
@@ -25,6 +25,19 @@
     "RankType": "None",
     "PerMapRanking": false,
     "LeaderboardType": "None",
-    "ProjectTemplate": null
+    "ProjectTemplate": null,
+    "CsProjName": "",
+    "LaunchConfigs": [
+      {
+        "Name": "My New Config",
+        "GameIdent": "terrier.splatv5#local",
+        "MapName": "carre.vmap",
+        "MaxPlayers": 1,
+        "GameSettings": {},
+        "Addons": "",
+        "PreLaunchCommand": "",
+        "PostLaunchCommand": ""
+      }
+    ]
   }
 }
