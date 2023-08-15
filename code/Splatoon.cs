@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 
 namespace SplatoonV5;
-public partial class MyGame : GameManager
+public partial class SplatoonV5 : GameManager
 {
-	public MyGame()
+	public SplatoonV5()
 	{
+		if ( Game.IsClient )
+			new HUD();
 	}
 	public override void ClientJoined( IClient client )
 	{

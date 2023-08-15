@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tomle\\Documents\\s&box projects\\splatv5\\SplatV5\\code\\SplatV5.csproj": {}
+    "C:\\Users\\tomle\\Documents\\s&box projects\\splatv5\\SplatV5\\code\\splatv5.csproj": {}
   },
   "projects": {
     "C:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\base\\code\\Base Library.csproj": {
@@ -59,12 +59,12 @@
         }
       }
     },
-    "C:\\Users\\tomle\\Documents\\s&box projects\\splatv5\\SplatV5\\code\\SplatV5.csproj": {
+    "C:\\Users\\tomle\\Documents\\s&box projects\\splatv5\\SplatV5\\code\\splatv5.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tomle\\Documents\\s&box projects\\splatv5\\SplatV5\\code\\SplatV5.csproj",
-        "projectName": "SplatV5",
-        "projectPath": "C:\\Users\\tomle\\Documents\\s&box projects\\splatv5\\SplatV5\\code\\SplatV5.csproj",
+        "projectUniqueName": "C:\\Users\\tomle\\Documents\\s&box projects\\splatv5\\SplatV5\\code\\splatv5.csproj",
+        "projectName": "splatv5",
+        "projectPath": "C:\\Users\\tomle\\Documents\\s&box projects\\splatv5\\SplatV5\\code\\splatv5.csproj",
         "packagesPath": "C:\\Users\\tomle\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\tomle\\Documents\\s&box projects\\splatv5\\SplatV5\\code\\obj\\",
         "projectStyle": "PackageReference",

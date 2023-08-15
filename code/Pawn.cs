@@ -1,83 +1,76 @@
 ﻿using Sandbox;
-using System;
-using System.Linq;
+using System.ComponentModel;
 
 namespace SplatoonV5;
 
-partial class Pawn : AnimatedEntity
+public partial class Pawn : AnimatedEntity
 {
-	public void DressFromClient( IClient cl )
-	{
-		var c = new ClothingContainer();
-		c.LoadFromClient( cl );
-		c.DressEntity( this );
-	}
-	bool IsThirdPerson { get; set; } = false;
+	[ClientInput]
+	public Vector3 InputDirection { get; set; }
+	public float speed = 20f;
 	public override void Spawn()
 	{
-		base.Spawn();
-
-		SetModel( "models/citizen.citizen.vmdl" );
+		SetModel( "models/citizen/citizen.vmdl" );
 
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
 	}
 
-	[ClientInput] public Vector3 InputDirection { get; protected set; }
-	[ClientInput] public Angles ViewAngles { get; set; }
-
-	public override void BuildInput()
+	public void DressFromClient( IClient cl )
 	{
-		InputDirection = Input.AnalogMove;
-
-		var look = Input.AnalogLook;
-
-		var viewAngles = ViewAngles;
-		viewAngles += look;
-		ViewAngles = viewAngles.Normal;
+		var c = new ClothingContainer();
+		c.LoadFromClient( cl );
+		c.DressEntity( this );
 	}
 
 	public override void Simulate( IClient cl )
 	{
-		base.Simulate( cl );
+		var moveDirection = InputDirection.Normal;
 
-		Rotation = ViewAngles.ToRotation();
-
-		var movement = InputDirection.Normal;
-
-		Velocity = Rotation * movement;
-
-		Velocity *= Input.Down( "run" ) ? 1000 : 200;
-
-		MoveHelper helper = new MoveHelper( Position, Velocity );
-		helper.Trace = helper.Trace.Size( 16 );
-		if ( helper.TryMove( Time.Delta ) > 0 )
-		{
-			Position = helper.Position;
-		}
+		Velocity = moveDirection * speed;
+		Position += Velocity + Time.Delta;
 
 		if ( Game.IsServer && Input.Pressed( "attack1" ) )
 		{
-			var ragdoll = new ModelEntity();
-			ragdoll.SetModel( "models/citizen/citizen.vmdl" );
-			ragdoll.Position = Position + Rotation.Forward * 40;
-			ragdoll.Rotation = Rotation.LookAt( Vector3.Random.Normal );
-			ragdoll.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );
-			ragdoll.PhysicsGroup.Velocity = Rotation.Forward * 1000;
+			var Peinture = new ModelEntity();
+			Peinture.SetModel( "models/citizen/citizen.vmdl" );
+			Peinture.Position = Position + Rotation.Forward * 40;
+			Peinture.Rotation = Rotation.LookAt( Vector3.Random.Normal );
+			Peinture.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );
+			Peinture.PhysicsGroup.Velocity = Rotation.Forward * 1000;
 		}
 	}
+
+	public override void BuildInput()
+	{
+		base.BuildInput();
+		InputDirection = Input.AnalogMove;
+	}
+
+	bool IsThirdPerson { get; set; } = false;
+
 	public override void FrameSimulate( IClient cl )
 	{
-		base.FrameSimulate( cl );
 
-		Rotation = ViewAngles.ToRotation();
+		Camera.Position = Position + Vector3.Backward * 10;
+		Camera.Rotation = Rotation.FromPitch( 90f );
+	}
 
-		Camera.Position = Position;
-		Camera.Rotation = Rotation;
+	public TraceResult TraceBBox( Vector3 start, Vector3 end, Vector3 mins, Vector3 maxs, float liftFeet = 0.0f )
+	{
+		if ( liftFeet > 0 )
+		{
+			start += Vector3.Up * liftFeet;
+			maxs = maxs.WithZ( maxs.z - liftFeet );
+		}
 
-		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( Game.Preferences.FieldOfView );
+		var tr = Trace.Ray( start, end )
+					.Size( mins, maxs )
+					.WithAnyTags( "solid", "playerclip", "passbullets" )
+					.Ignore( this )
+					.Run();
 
-		Camera.FirstPersonViewer = this;
+		return tr;
 	}
 }
