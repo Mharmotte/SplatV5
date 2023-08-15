@@ -17,8 +17,8 @@
   "libraries": {
     "Base Library/1.0.0": {
       "type": "project",
-      "path": "../../../../../../Program Files (x86)/Steam/steamapps/common/sbox/addons/base/code/Base Library.csproj",
-      "msbuildProject": "../../../../../../Program Files (x86)/Steam/steamapps/common/sbox/addons/base/code/Base Library.csproj"
+      "path": "../../../../../../../Program Files (x86)/Steam/steamapps/common/sbox/addons/base/code/Base Library.csproj",
+      "msbuildProject": "../../../../../../../Program Files (x86)/Steam/steamapps/common/sbox/addons/base/code/Base Library.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -32,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\users\\tomle\\documents\\s&box projects\\splatv5\\code\\SplatV5.csproj",
+      "projectUniqueName": "C:\\Users\\tomle\\Documents\\s&box projects\\splatv5\\SplatV5\\code\\SplatV5.csproj",
       "projectName": "SplatV5",
-      "projectPath": "c:\\users\\tomle\\documents\\s&box projects\\splatv5\\code\\SplatV5.csproj",
+      "projectPath": "C:\\Users\\tomle\\Documents\\s&box projects\\splatv5\\SplatV5\\code\\SplatV5.csproj",
       "packagesPath": "C:\\Users\\tomle\\.nuget\\packages\\",
-      "outputPath": "c:\\users\\tomle\\documents\\s&box projects\\splatv5\\code\\obj\\",
+      "outputPath": "C:\\Users\\tomle\\Documents\\s&box projects\\splatv5\\SplatV5\\code\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\tomle\\AppData\\Roaming\\NuGet\\NuGet.Config",
