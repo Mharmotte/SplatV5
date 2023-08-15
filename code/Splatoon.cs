@@ -21,15 +21,7 @@ public partial class SplatoonV5 : GameManager
 		var pawn = new Pawn();
 		client.Pawn = pawn;
 
-		var spawnpoints = Entity.All.OfType<SpawnPoint>();
-
-		var randomSpawnPoint = spawnpoints.OrderBy( x => Guid.NewGuid() ).FirstOrDefault();
-
-		if ( randomSpawnPoint != null )
-		{
-			var tx = randomSpawnPoint.Transform;
-			tx.Position = tx.Position + Vector3.Up * 50.0f;
-			pawn.Transform = tx;
-		}
+		var allSpawnPoints = Entity.All.OfType<SpawnPoint>();
+		var randomSpawnPoints = allSpawnPoints.OrderBy( spawnPoint => spawnPoint.Position.Distance(Vector3.Zero) ).FirstOrDefault();
 	}
 }

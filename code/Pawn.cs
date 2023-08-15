@@ -37,7 +37,22 @@ public partial class Pawn : AnimatedEntity
 	public override void FrameSimulate( IClient cl )
 	{
 		base.FrameSimulate( cl );
-		Camera.Position = Position + Vector3.Backward * 100;
+		Vector3 targetPos;
+		var pos = Position + Vector3.Up * 40;
+		var rot = Camera.Rotation * Rotation.FromAxis( Vector3.Up, -30 );
+
+		float distance = 80.0f * Scale;
+		targetPos = pos + rot.Right * ((CollisionBounds.Mins.x + 50) * Scale);
+		targetPos += rot.Forward * -distance;
+
+		var tr = Trace.Ray( pos, targetPos )
+			.WithAnyTags( "solid" )
+			.Ignore( this )
+			.Radius( 8 )
+			.Run();
+
+		Camera.FirstPersonViewer = null;
+		Camera.Position = tr.EndPosition;
 	}
 	public override void BuildInput()
 	{
